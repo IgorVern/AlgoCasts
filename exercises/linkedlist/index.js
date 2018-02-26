@@ -145,14 +145,35 @@ class LinkedList {
     }
   }
 
-  *[Symbol.iterator]() {
+  // *[Symbol.iterator]() {
+  //   let node = this.head
+  //
+  //   if (!node) return
+  //
+  //   while (node) {
+  //     yield node
+  //     node = node.next
+  //   }
+  // }
+
+  [Symbol.iterator]() {
     let node = this.head
+    return {
+      next() {
+        if (node) {
+          const value = node
+          node = node.next
 
-    if (!node) return
-
-    while (node) {
-      yield node
-      node = node.next
+          return {
+            done: false,
+            value
+          }
+        } else {
+          return {
+            done: true
+          }
+        }
+      }
     }
   }
 }
