@@ -12,8 +12,34 @@
 //     q.remove(); // returns 1
 //     q.remove(); // returns 2
 
-const Stack = require('./stack');
+const Stack = require('./stack')
 
-class Queue {}
+class Queue {
+  constructor() {
+    this.data = new Stack()
+  }
+
+  add(item) {
+    const reverted = new Stack()
+
+    while (this.data.peek()) {
+      reverted.push(this.data.pop())
+    }
+
+    reverted.push(item)
+
+    while (reverted.peek()) {
+      this.data.push(reverted.pop())
+    }
+  }
+
+  remove() {
+    return this.data.pop();
+  }
+
+  peek() {
+    return this.data.peek()
+  }
+}
 
 module.exports = Queue;
